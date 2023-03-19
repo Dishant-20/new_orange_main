@@ -5,8 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_new_orange/classes/splash/home/home.dart';
 import 'package:my_new_orange/header/utils/Utils.dart';
-import 'package:my_new_orange/header/utils/custom/app_bar.dart';
-import 'package:my_new_orange/registration/registration.dart';
+// import 'package:my_new_orange/header/utils/custom/app_bar.dart';
+// import 'package:my_new_orange/registration/registration.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

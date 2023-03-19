@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_new_orange/classes/all_chat_list/all_chats_list.dart';
@@ -167,7 +167,6 @@ class _PublicChatRoomScreenState extends State<PublicChatRoomScreen> {
 
   //
   // send message
-  // send message
   sendMessageViaFirebase(strLastMessageEntered) {
     // print(cont_txt_send_message.text);
 
@@ -190,7 +189,7 @@ class _PublicChatRoomScreenState extends State<PublicChatRoomScreen> {
         )
         .then(
           (value) => print(
-              "Message send successfully. Message id is =====>${value.id}"),
+              "Message send successfully. Message id is =====> ${value.id}"),
           // func_scroll_to_bottom(),
 
           // func_check_scrolling(),

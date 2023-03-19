@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_new_orange/header/utils/Utils.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 // import 'package:shaawl/classes/headers/utils/utils.dart';
 
 class PublicChatRoomChats extends StatefulWidget {
@@ -19,6 +20,10 @@ class _PublicChatRoomChatsState extends State<PublicChatRoomChats> {
   bool _needsScroll = false;
   final ScrollController _scrollController = ScrollController();
 
+  //
+  int _currentItem = 0;
+  var strScrollOnlyOneTime = '1';
+  //
   @override
   void initState() {
     super.initState();
@@ -51,54 +56,141 @@ class _PublicChatRoomChatsState extends State<PublicChatRoomChats> {
                 .collection(
                   "message/India/public_chats",
                 )
-                .orderBy('time_stamp', descending: false)
+                .orderBy('time_stamp', descending: true)
                 .limit(40)
                 .snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasData) {
                 //
-                _needsScroll = true;
-                WidgetsBinding.instance
-                    .addPostFrameCallback((_) => _scrollToEnd());
+                if (strScrollOnlyOneTime == '1') {
+                  _needsScroll = true;
+                  WidgetsBinding.instance
+                      .addPostFrameCallback((_) => _scrollToEnd());
+                }
                 //
-                var getSnapShopValue = snapshot.data!.docs.toList();
+
+                var getSnapShopValue = snapshot.data!.docs.reversed.toList();
                 if (kDebugMode) {
                   // print(getSnapShopValue);
                 }
-                return ListView.builder(
-                  // controller: controller,
-                  controller: _scrollController,
-                  itemCount: getSnapShopValue.length,
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding: const EdgeInsets.only(
-                        left: 14,
-                        right: 14,
-                        //
-                        top: 10,
-                        bottom: 10,
+                return Stack(
+                  children: [
+                    if (strScrollOnlyOneTime == '1') ...[
+                      const SizedBox(
+                        height: 0,
+                      )
+                    ] else ...[
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: InkWell(
+                          onTap: () {
+                            _needsScroll = true;
+                            WidgetsBinding.instance
+                                .addPostFrameCallback((_) => _scrollToEnd());
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.all(10.0),
+                            width: 120,
+                            height: 40,
+                            child: Center(
+                              child: textWithSemiBoldStyle(
+                                'New message',
+                                14.0,
+                                Colors.black,
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(
+                                255,
+                                250,
+                                247,
+                                247,
+                              ),
+                              borderRadius: BorderRadius.circular(
+                                14.0,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: const Offset(
+                                    0,
+                                    3,
+                                  ), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                      child: Align(
-                        alignment: (getSnapShopValue[index]
-                                        ['sender_firebase_id']
-                                    .toString() ==
-                                FirebaseAuth.instance.currentUser!.uid
-                            ? Alignment.topRight
-                            : Alignment.topLeft),
-                        child: leftSideUIOnlyForPublicChat(
-                            getSnapShopValue, index),
-                        // (getSnapShopValue[index]['sender_firebase_id']
-                        //             .toString() ==
-                        //         FirebaseAuth.instance.currentUser!.uid)
-                        //     ? senderUI(getSnapShopValue, index)
-                        //     : receiverUI(index),
-                      ),
-                    );
-                  },
+                    ],
+                    ListView.builder(
+                      // controller: controller,
+                      controller: _scrollController,
+                      itemCount: getSnapShopValue.length,
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.only(top: 10, bottom: 10),
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return VisibilityDetector(
+                          key: Key(index.toString()),
+                          onVisibilityChanged: (VisibilityInfo info) {
+                            if (info.visibleFraction == 1) {
+                              // setState(() {
+                              if (kDebugMode) {
+                                print(info);
+
+                                _currentItem = index;
+
+                                // print("INDEX =====> $index");
+                                // print("CURRENT INDEX =====> $_currentItem");
+                                // print(
+                                // "SERVER ARRAY INDEX =====> ${getSnapShopValue.length - 1}");
+
+                                if (_currentItem ==
+                                    getSnapShopValue.length - 1) {
+                                  print('USER IS IN LAST INDEX');
+                                  setState(() {
+                                    strScrollOnlyOneTime = '1';
+                                  });
+                                } else {
+                                  print('USER SCROLLS SCREEN');
+
+                                  strScrollOnlyOneTime = '0';
+                                }
+                              }
+                            }
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.only(
+                              left: 14,
+                              right: 14,
+                              //
+                              top: 10,
+                              bottom: 10,
+                            ),
+                            child: Align(
+                              alignment: (getSnapShopValue[index]
+                                              ['sender_firebase_id']
+                                          .toString() ==
+                                      FirebaseAuth.instance.currentUser!.uid
+                                  ? Alignment.topRight
+                                  : Alignment.topLeft),
+                              child: leftSideUIOnlyForPublicChat(
+                                  getSnapShopValue, index),
+                              // (getSnapShopValue[index]['sender_firebase_id']
+                              //             .toString() ==
+                              //         FirebaseAuth.instance.currentUser!.uid)
+                              //     ? senderUI(getSnapShopValue, index)
+                              //     : receiverUI(index),
+                            ),
+                          ),
+                        );
+                      },
+                    )
+                  ],
                 );
               } else if (snapshot.hasError) {
                 return Center(
