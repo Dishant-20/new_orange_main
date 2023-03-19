@@ -5,7 +5,8 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_new_orange/classes/feeds/feeds.dart';
-import 'package:my_new_orange/classes/set_name/online_chat_entry.dart';
+import 'package:my_new_orange/classes/set_name/set_profile_name.dart';
+// import 'package:my_new_orange/classes/set_name/online_chat_entry.dart';
 import 'package:my_new_orange/classes/settings/settings.dart';
 // import 'package:my_new_orange/classes/feeds/feeds.dart';
 // import 'package:my_new_orange/classes/set_name/online_chat_entry.dart';
@@ -254,13 +255,13 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                                 height: 66.0,
                                 child: InkWell(
                                   onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const OnlineChatEntryScreen(),
-                                      ),
-                                    );
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) =>
+                                    //         const OnlineChatEntryScreen(),
+                                    //   ),
+                                    // );
                                   },
                                   child: Image.asset(
                                     'assets/gif/chat.png',
@@ -274,12 +275,13 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                           child: InkWell(
                             onTap: () {
                               func_image_alert_popup();
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => const FeedsScreen(),
-                              //   ),
-                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const SetProfileNameScreen(),
+                                ),
+                              );
                             },
                             child: Container(
                               margin: const EdgeInsets.only(
@@ -360,7 +362,7 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const OnlineChatEntryScreen(),
+                                          const SetProfileNameScreen(),
                                     ),
                                   );
                                 },

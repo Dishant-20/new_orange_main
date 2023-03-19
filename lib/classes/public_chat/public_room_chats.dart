@@ -2,12 +2,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+// import 'package:my_new_orange/classes/private_chat/private_chat_room.dart';
+import 'package:my_new_orange/classes/private_chat/private_chat_room_two.dart';
 import 'package:my_new_orange/header/utils/Utils.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 // import 'package:shaawl/classes/headers/utils/utils.dart';
 
 class PublicChatRoomChats extends StatefulWidget {
-  const PublicChatRoomChats({super.key});
+  const PublicChatRoomChats({
+    super.key,
+    required this.strLoginSenderChatIdForPublic,
+    required this.strLoginSenderNameForPublic,
+  });
+
+  final String strLoginSenderChatIdForPublic;
+  final String strLoginSenderNameForPublic;
 
   @override
   State<PublicChatRoomChats> createState() => _PublicChatRoomChatsState();
@@ -230,6 +239,29 @@ class _PublicChatRoomChatsState extends State<PublicChatRoomChats> {
                         if (kDebugMode) {
                           print('=====> CHAT WITH OTHERS CLICK <=====');
                         }
+                        //
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PrivateChatScreenTwo(
+                              strSenderName:
+                                  widget.strLoginSenderNameForPublic.toString(),
+                              strReceiverName: getSnapshotData[index]
+                                      ['sender_name']
+                                  .toString(),
+                              strReceiverFirebaseId: getSnapshotData[index]
+                                      ['sender_firebase_id']
+                                  .toString(),
+                              strSenderChatId: widget
+                                  .strLoginSenderChatIdForPublic
+                                  .toString(),
+                              strReceiverChatId: getSnapshotData[index]
+                                      ['sender_chat_user_id']
+                                  .toString(),
+                            ),
+                          ),
+                        );
+                        //
                       },
                       icon: const Icon(
                         Icons.chat,
@@ -292,56 +324,4 @@ class _PublicChatRoomChatsState extends State<PublicChatRoomChats> {
       ],
     );
   }
-
-  // Column senderUI(getSnapshot, int index) {
-  //   return Column(
-  //     children: [
-  //       Align(
-  //         alignment: Alignment.bottomRight,
-  //         child: Container(
-  //           margin: const EdgeInsets.only(
-  //             left: 40,
-  //           ),
-  //           decoration: BoxDecoration(
-  //             borderRadius: const BorderRadius.only(
-  //               topLeft: Radius.circular(
-  //                 16,
-  //               ),
-  //               bottomLeft: Radius.circular(
-  //                 16,
-  //               ),
-  //               topRight: Radius.circular(
-  //                 16,
-  //               ),
-  //             ),
-  //             color: Colors.blue[200],
-  //           ),
-  //           padding: const EdgeInsets.all(
-  //             16,
-  //           ),
-  //           child: const Text(
-  //             'r',
-  //             style: TextStyle(
-  //               fontSize: 15,
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //       //
-  //       Align(
-  //         alignment: Alignment.bottomRight,
-  //         child: textWithRegularStyle(
-  //           // getSnapshot[index]['time_stamp'].toString(),
-  //           funcConvertTimeStampToDateAndTime(
-  //             getSnapshot[index]['time_stamp'],
-  //           ),
-  //           12.0,
-  //           Colors.black,
-  //           'right',
-  //         ),
-  //       ),
-  //       //
-  //     ],
-  //   );
-  // }
 }

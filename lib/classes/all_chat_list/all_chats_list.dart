@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:my_new_orange/header/utils/Utils.dart';
 // import 'package:shaawl/classes/headers/utils/utils.dart';
@@ -93,66 +94,78 @@ class _AllChatsListScreenState extends State<AllChatsListScreen> {
               ),
             ),
 //
-            for (int i = 0; i < 10; i++) ...[
-              Container(
-                padding: const EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  top: 10,
-                  bottom: 10,
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          const CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                'https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80'),
-                            maxRadius: 30,
-                          ),
-                          const SizedBox(
-                            width: 16,
-                          ),
-                          Expanded(
-                            child: Container(
-                              color: Colors.transparent,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  textWithSemiBoldStyle(
-                                    'Dishant Rajput',
-                                    16.0,
-                                    Colors.black,
-                                  ),
-                                  const SizedBox(
-                                    height: 6,
-                                  ),
-                                  Text(
-                                    'i am going out',
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
+
+            StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('dialog')
+                    .doc('India')
+                    .collection('details')
+                    .orderBy('time_stamp', descending: true)
+                    .where('match', arrayContainsAny: [
+                  '',
+                ]).snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  return Container(
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                      right: 16,
+                      top: 10,
+                      bottom: 10,
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Row(
+                            children: <Widget>[
+                              const CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    'https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80'),
+                                maxRadius: 30,
                               ),
-                            ),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              Expanded(
+                                child: Container(
+                                  color: Colors.transparent,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      textWithSemiBoldStyle(
+                                        'Dishant Rajput',
+                                        16.0,
+                                        Colors.black,
+                                      ),
+                                      const SizedBox(
+                                        height: 6,
+                                      ),
+                                      Text(
+                                        'i am going out',
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            color: Colors.grey.shade600,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                        const Text(
+                          "9:41 am",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                    const Text(
-                      "9:41 am",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ]
+                  );
+                }),
           ],
         ),
       ),

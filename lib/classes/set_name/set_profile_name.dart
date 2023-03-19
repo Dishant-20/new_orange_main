@@ -219,7 +219,7 @@ class _SetProfileNameScreenState extends State<SetProfileNameScreen> {
               // setState(() {
               //   // isLoading = false;
               // });
-
+              //
               Navigator.push(
                 context,
                 MaterialPageRoute(

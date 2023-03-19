@@ -34,6 +34,16 @@ class _PublicChatRoomScreenState extends State<PublicChatRoomScreen> {
   @override
   void initState() {
     super.initState();
+    /*******************************************/
+    /*******************************************/
+    if (kDebugMode) {
+      print(widget.strSenderName);
+    }
+    if (kDebugMode) {
+      print(widget.strSenderChatId);
+    }
+    /*******************************************/
+    /*******************************************/
 
     //
     // controller.jumpTo(controller.position.maxScrollExtent);
@@ -81,7 +91,11 @@ class _PublicChatRoomScreenState extends State<PublicChatRoomScreen> {
               children: [
                 // ======> ALL CHATS LIST <======
                 // ========================
-                const PublicChatRoomChats(),
+                PublicChatRoomChats(
+                  strLoginSenderChatIdForPublic:
+                      widget.strSenderChatId.toString(),
+                  strLoginSenderNameForPublic: widget.strSenderName.toString(),
+                ),
                 // ========================
                 // ========================
 

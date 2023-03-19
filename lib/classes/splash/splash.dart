@@ -203,12 +203,12 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               );
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SetProfileNameScreen(),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => const SetProfileNameScreen(),
+              //   ),
+              // );
             }
           });
         } else {
