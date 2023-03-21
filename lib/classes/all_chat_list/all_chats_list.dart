@@ -1,19 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_new_orange/header/utils/Utils.dart';
 // import 'package:shaawl/classes/headers/utils/utils.dart';
 // import 'package:shaawl/classes/models/chat_user_model.dart';
 
 class AllChatsListScreen extends StatefulWidget {
-  const AllChatsListScreen({super.key});
+  const AllChatsListScreen(
+      {super.key, required this.str_dialog_login_user_chat_id});
 
-  // String name;
-  // String messageText;
-  // String imageUrl;
-  // String time;
-  // bool isMessageRead;
-
-// AllChatsListScreen({super.key, required this.name,required this.messageText,required this.imageUrl,required this.time,required this.isMessageRead});
+  final String str_dialog_login_user_chat_id;
 
   @override
   State<AllChatsListScreen> createState() => _AllChatsListScreenState();
@@ -31,18 +28,18 @@ class _AllChatsListScreenState extends State<AllChatsListScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SafeArea(
+            /*SafeArea(
               child: Padding(
                 padding: const EdgeInsets.only(left: 16, right: 16, top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    const Text(
+                  children: const <Widget>[
+                    Text(
                       "Conversations",
                       style:
                           TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
-                    Container(
+                    /*Container(
                       padding: const EdgeInsets.only(
                           left: 8, right: 8, top: 2, bottom: 2),
                       height: 30,
@@ -67,13 +64,13 @@ class _AllChatsListScreenState extends State<AllChatsListScreen> {
                           ),
                         ],
                       ),
-                    )
+                    )*/
                   ],
                 ),
               ),
-            ),
+            ),*/
             //
-            Padding(
+            /*Padding(
               padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
               child: TextField(
                 decoration: InputDecoration(
@@ -92,7 +89,7 @@ class _AllChatsListScreenState extends State<AllChatsListScreen> {
                       borderSide: BorderSide(color: Colors.grey.shade100)),
                 ),
               ),
-            ),
+            ),*/
 //
 
             StreamBuilder(
@@ -102,68 +99,122 @@ class _AllChatsListScreenState extends State<AllChatsListScreen> {
                     .collection('details')
                     .orderBy('time_stamp', descending: true)
                     .where('match', arrayContainsAny: [
-                  '',
+                  widget.str_dialog_login_user_chat_id,
                 ]).snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
-                  return Container(
-                    padding: const EdgeInsets.only(
-                      left: 16,
-                      right: 16,
-                      top: 10,
-                      bottom: 10,
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Row(
-                            children: <Widget>[
-                              const CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                    'https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80'),
-                                maxRadius: 30,
-                              ),
-                              const SizedBox(
-                                width: 16,
-                              ),
-                              Expanded(
-                                child: Container(
-                                  color: Colors.transparent,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                  if (snapshot.hasData) {
+                    //
+                    var saveSnapshotValue = snapshot.data!.docs;
+                    //
+                    if (kDebugMode) {
+                      print(snapshot.hasData);
+                      print(widget.str_dialog_login_user_chat_id);
+                      print(snapshot.data!.docs.length);
+                      print(saveSnapshotValue);
+                    }
+                    //
+                    return Column(
+                      children: [
+                        for (int i = 0; i < saveSnapshotValue.length; i++) ...[
+                          Container(
+                            padding: const EdgeInsets.only(
+                              left: 16,
+                              right: 16,
+                              top: 10,
+                              bottom: 10,
+                            ),
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Row(
                                     children: <Widget>[
-                                      textWithSemiBoldStyle(
-                                        'Dishant Rajput',
-                                        16.0,
-                                        Colors.black,
+                                      const CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                            'https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80'),
+                                        maxRadius: 30,
                                       ),
                                       const SizedBox(
-                                        height: 6,
+                                        width: 16,
                                       ),
-                                      Text(
-                                        'i am going out',
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            color: Colors.grey.shade600,
-                                            fontWeight: FontWeight.bold),
+                                      Expanded(
+                                        child: Container(
+                                          color: Colors.transparent,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              (saveSnapshotValue[i][
+                                                              'sender_firebase_id']
+                                                          .toString() ==
+                                                      FirebaseAuth.instance
+                                                          .currentUser!.uid
+                                                          .toString())
+                                                  ? textWithSemiBoldStyle(
+                                                      //
+                                                      // 'd',
+                                                      saveSnapshotValue[i]
+                                                          ['receiver_name'],
+                                                      //
+                                                      16.0,
+                                                      Colors.black,
+                                                    )
+                                                  : textWithSemiBoldStyle(
+                                                      //
+                                                      // 'd',
+                                                      saveSnapshotValue[i]
+                                                          ['sender_name'],
+                                                      //
+                                                      16.0,
+                                                      Colors.black,
+                                                    ),
+                                              const SizedBox(
+                                                height: 6,
+                                              ),
+                                              //
+                                              textWithRegularStyle(
+                                                //
+                                                // 'd',
+                                                saveSnapshotValue[i]['message']
+                                                    .toString(),
+                                                //
+                                                16.0,
+                                                Colors.black,
+                                                'left',
+                                              ),
+                                              //
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Text(
-                          "9:41 am",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                                Text(
+                                  funcConvertTimeStampToDateAndTime(
+                                    saveSnapshotValue[i]['time_stamp'],
+                                  ),
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
                       ],
-                    ),
+                    );
+                  } else if (snapshot.hasError) {
+                    if (kDebugMode) {
+                      print(snapshot.error);
+                    }
+                    return Center(
+                      child: Text('Error: ${snapshot.error}'),
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
                   );
                 }),
           ],

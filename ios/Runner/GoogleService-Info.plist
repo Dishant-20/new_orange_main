@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>441606888982-6fkfj9jo5cinr38fqqn1vkmlo7o2ju7o.apps.googleusercontent.com</string>
+	<string>667327318779-d9rgn51iang92n2j8mba97u1oll3jvo8.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.441606888982-6fkfj9jo5cinr38fqqn1vkmlo7o2ju7o</string>
+	<string>com.googleusercontent.apps.667327318779-d9rgn51iang92n2j8mba97u1oll3jvo8</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>667327318779-1df0tca6a31k7h367uvhn2sfmka84vas.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyABayw-2h8PHtfl6nHh5o05klKDM0jVIps</string>
+	<string>AIzaSyCgGmP9X5dWA_YfyIzM089h8rrMt_0yS30</string>
 	<key>GCM_SENDER_ID</key>
-	<string>441606888982</string>
+	<string>667327318779</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com</string>
+	<string>com.dev.evs.anamak</string>
 	<key>PROJECT_ID</key>
-	<string>my-new-orange</string>
+	<string>official-console</string>
 	<key>STORAGE_BUCKET</key>
-	<string>my-new-orange.appspot.com</string>
+	<string>official-console.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:441606888982:ios:2ec573fb7526f10d9b9f37</string>
+	<string>1:667327318779:ios:c1296a67215775f4907e5e</string>
+	<key>DATABASE_URL</key>
+	<string>https://official-console-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

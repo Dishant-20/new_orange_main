@@ -113,7 +113,10 @@ class _PublicChatRoomScreenState extends State<PublicChatRoomScreen> {
 
             // ======> SECOND TAB <======
             // ========================
-            const AllChatsListScreen()
+            AllChatsListScreen(
+              str_dialog_login_user_chat_id: widget.strSenderChatId,
+              // str_dialog_login_user_gender: 'g',
+            ),
             // ========================
             // ========================
           ],

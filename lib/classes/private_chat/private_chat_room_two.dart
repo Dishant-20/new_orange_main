@@ -42,6 +42,7 @@ class _PrivateChatScreenTwoState extends State<PrivateChatScreenTwo> {
   //
   var roomId;
   var reverseRoomId;
+  var lastMessage = '';
   //
   @override
   void initState() {
@@ -401,6 +402,7 @@ class _PrivateChatScreenTwoState extends State<PrivateChatScreenTwo> {
               //
 
               sendMessageViaFirebase(contTextSendMessage.text);
+              lastMessage = contTextSendMessage.text.toString();
               contTextSendMessage.text = '';
 
               // }
@@ -503,9 +505,13 @@ class _PrivateChatScreenTwoState extends State<PrivateChatScreenTwo> {
                 if (kDebugMode) {
                   print(element.id);
                 }
-
-                // func_update_dialog_after_add(element.id.toString());
+                //
+                funcEditDialogWithTimeStamp(element.id);
+                return;
               }
+              //
+              //
+              //
             }
           },
         );
@@ -528,6 +534,15 @@ class _PrivateChatScreenTwoState extends State<PrivateChatScreenTwo> {
     users
         .add(
           {
+            'sender_firebase_id': FirebaseAuth.instance.currentUser!.uid,
+            'sender_name': widget.strSenderName,
+            'receiver_name': widget.strReceiverName,
+            'time_stamp': DateTime.now().millisecondsSinceEpoch,
+            'message': lastMessage,
+            'users': [
+              roomId,
+              reverseRoomId,
+            ],
             'match': [
               widget.strSenderChatId,
               widget.strReceiverChatId,
@@ -540,5 +555,34 @@ class _PrivateChatScreenTwoState extends State<PrivateChatScreenTwo> {
         .catchError(
           (error) => print("Failed to add user: $error"),
         );
+  }
+
+  // UPDATE DIALOG AFTER SEND MESSAGE
+  funcEditDialogWithTimeStamp(
+    elementWithId,
+  ) {
+    FirebaseFirestore.instance
+        .collection('dialog')
+        .doc('India')
+        .collection('details')
+        .doc(elementWithId.toString())
+        .set(
+      {
+        'time_stamp': DateTime.now().millisecondsSinceEpoch,
+        'message': lastMessage,
+      },
+      SetOptions(merge: true),
+    ).then(
+      (value) {
+        if (kDebugMode) {
+          print('value 1.0');
+        }
+        //
+        // setState(() {
+        // strSetLoader = '1';
+        // });
+        //
+      },
+    );
   }
 }

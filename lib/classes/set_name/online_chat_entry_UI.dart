@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_new_orange/header/utils/Utils.dart';
 
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 
 class OnlineChatEntryRadioButton extends StatefulWidget {
   const OnlineChatEntryRadioButton({super.key});
@@ -64,9 +64,11 @@ class _OnlineChatEntryRadioButtonState
           value: "3",
           groupValue: gender,
           onChanged: (value) {
-            setState(() {
-              gender = value.toString();
-            });
+            setState(
+              () {
+                gender = value.toString();
+              },
+            );
           },
         ),
       ],
