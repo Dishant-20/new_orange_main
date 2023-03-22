@@ -9,6 +9,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:my_new_orange/classes/splash/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+
 import 'firebase_options.dart';
 
 RemoteMessage? initialMessage;
@@ -18,7 +21,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
-    name: "dev-project",
+    name: "dev-anamak",
     options: DefaultFirebaseOptions.currentPlatform,
   );
 

@@ -63,7 +63,7 @@ class _SetProfileNameScreenState extends State<SetProfileNameScreen> {
     return Scaffold(
       appBar: AppBarScreen(
         str_app_bar_title: 'Set Profile Name',
-        str_status: '0',
+        str_status: '1',
         // appBarTitle: 'Set Profile Name',
         // strBackButtonHide: 'yes',
       ),

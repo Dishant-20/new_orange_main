@@ -29,6 +29,9 @@ var str_n_t_set_name = 'Set name';
 // public messgae count
 var public_message_count = 40;
 
+//
+var databaseTableName = 'anamak_category_list_db_2';
+
 /* ================================================================ */
 
 // text with regular

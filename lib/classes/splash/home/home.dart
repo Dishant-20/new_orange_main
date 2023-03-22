@@ -272,8 +272,14 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
 
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(
-                                14,
+                              borderRadius: const BorderRadius.only(
+                                // 14,
+                                topLeft: Radius.circular(
+                                  14,
+                                ),
+                                topRight: Radius.circular(
+                                  14,
+                                ),
                               ),
                               boxShadow: [
                                 BoxShadow(
@@ -318,16 +324,15 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                             onTap: () {
                               //
                               if (kDebugMode) {
-                                print('object 1.1');
+                                print('====> PUSH RIVIEW VIA ICONS');
                               }
-                              //
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) =>
-                              //         const SetProfileNameScreen(),
-                              //   ),
-                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ReviewCategoryScreen(),
+                                ),
+                              );
                             },
                             child: Container(
                               margin: const EdgeInsets.only(
@@ -338,8 +343,13 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
 
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(
-                                  14,
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(
+                                    14,
+                                  ),
+                                  topRight: Radius.circular(
+                                    14,
+                                  ),
                                 ),
                                 boxShadow: [
                                   BoxShadow(
@@ -384,8 +394,13 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                             decoration: BoxDecoration(
                               // color: const Color.fromRGBO(96, 190, 248, 1),
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(
-                                14,
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(
+                                  14,
+                                ),
+                                bottomRight: Radius.circular(
+                                  14,
+                                ),
                               ),
                               boxShadow: [
                                 BoxShadow(
@@ -412,14 +427,8 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                                     ),
                                   );
                                 },
-                                child: Container(
-                                  margin: const EdgeInsets.all(10.0),
-                                  color: Colors.transparent,
-                                  width: 66.0,
-                                  height: 66.0,
-                                  child: text_with_regular_style(
-                                    'Chat',
-                                  ),
+                                child: text_with_regular_style(
+                                  'Chat',
                                 ),
                               ),
                             ),
@@ -450,8 +459,13 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                               decoration: BoxDecoration(
                                 // color: Colors.brown,
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(
-                                  14,
+                                borderRadius: const BorderRadius.only(
+                                  bottomLeft: Radius.circular(
+                                    14,
+                                  ),
+                                  bottomRight: Radius.circular(
+                                    14,
+                                  ),
                                 ),
                                 boxShadow: [
                                   BoxShadow(
@@ -468,14 +482,8 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                               // width: 48.0,
                               height: 40,
                               child: Align(
-                                child: Container(
-                                  margin: const EdgeInsets.all(10.0),
-                                  color: Colors.transparent,
-                                  // width: ,
-                                  height: 66.0,
-                                  child: text_with_regular_style(
-                                    'Reviews',
-                                  ),
+                                child: text_with_regular_style(
+                                  'Reviews',
                                 ),
                               ),
                             ),

@@ -47,6 +47,8 @@ dependencies:
   intl_phone_field: ^3.1.0
   shared_preferences: ^2.0.15
   visibility_detector: ^0.4.0+2
+  sqflite:
+  path:
   # reference:
 
 dev_dependencies:
