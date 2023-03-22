@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:my_new_orange/classes/private_chat/private_chat_room_two.dart';
 import 'package:my_new_orange/header/utils/Utils.dart';
 // import 'package:shaawl/classes/headers/utils/utils.dart';
 // import 'package:shaawl/classes/models/chat_user_model.dart';
@@ -93,31 +94,56 @@ class _AllChatsListScreenState extends State<AllChatsListScreen> {
 //
 
             StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('dialog')
-                    .doc('India')
-                    .collection('details')
-                    .orderBy('time_stamp', descending: true)
-                    .where('match', arrayContainsAny: [
-                  widget.str_dialog_login_user_chat_id,
-                ]).snapshots(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasData) {
-                    //
-                    var saveSnapshotValue = snapshot.data!.docs;
-                    //
-                    if (kDebugMode) {
-                      print(snapshot.hasData);
-                      print(widget.str_dialog_login_user_chat_id);
-                      print(snapshot.data!.docs.length);
-                      print(saveSnapshotValue);
-                    }
-                    //
-                    return Column(
-                      children: [
-                        for (int i = 0; i < saveSnapshotValue.length; i++) ...[
-                          Container(
+              stream: FirebaseFirestore.instance
+                  .collection('${strFirebaseMode}dialog')
+                  .doc('India')
+                  .collection('details')
+                  .orderBy('time_stamp', descending: true)
+                  .where('match', arrayContainsAny: [
+                widget.str_dialog_login_user_chat_id,
+              ]).snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasData) {
+                  //
+                  var saveSnapshotValue = snapshot.data!.docs;
+                  //
+                  if (kDebugMode) {
+                    print(snapshot.hasData);
+                    print(widget.str_dialog_login_user_chat_id);
+                    print(snapshot.data!.docs.length);
+                    print(saveSnapshotValue);
+                  }
+                  //
+                  return Column(
+                    children: [
+                      for (int i = 0; i < saveSnapshotValue.length; i++) ...[
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PrivateChatScreenTwo(
+                                  strSenderName: saveSnapshotValue[i]
+                                          ['sender_name']
+                                      .toString(),
+                                  strReceiverName: saveSnapshotValue[i]
+                                          ['receiver_name']
+                                      .toString(),
+                                  strReceiverFirebaseId: saveSnapshotValue[i]
+                                          ['receiver_firebase_id']
+                                      .toString(),
+                                  strSenderChatId: saveSnapshotValue[i]
+                                          ['sender_chat_user_id']
+                                      .toString(),
+                                  strReceiverChatId: saveSnapshotValue[i]
+                                          ['receiver_chat_user_id']
+                                      .toString(),
+                                ),
+                              ),
+                            );
+                          },
+                          child: Container(
                             padding: const EdgeInsets.only(
                               left: 16,
                               right: 16,
@@ -194,29 +220,31 @@ class _AllChatsListScreenState extends State<AllChatsListScreen> {
                                   funcConvertTimeStampToDateAndTime(
                                     saveSnapshotValue[i]['time_stamp'],
                                   ),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ],
                             ),
-                          )
-                        ],
+                          ),
+                        )
                       ],
-                    );
-                  } else if (snapshot.hasError) {
-                    if (kDebugMode) {
-                      print(snapshot.error);
-                    }
-                    return Center(
-                      child: Text('Error: ${snapshot.error}'),
-                    );
-                  }
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                    ],
                   );
-                }),
+                } else if (snapshot.hasError) {
+                  if (kDebugMode) {
+                    print(snapshot.error);
+                  }
+                  return Center(
+                    child: Text('Error: ${snapshot.error}'),
+                  );
+                }
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
           ],
         ),
       ),

@@ -32,6 +32,8 @@ class _SetProfileNameScreenState extends State<SetProfileNameScreen> {
     //
     // func();
     //
+    // print('object');
+    // funcCreateReviewCategory();
   }
 
   func() async {
@@ -146,7 +148,7 @@ class _SetProfileNameScreenState extends State<SetProfileNameScreen> {
   // CHECK PROFILE DATA AFTER CLICK ON SET
   funcSetProfileForChat() {
     FirebaseFirestore.instance
-        .collection("users")
+        .collection("${strFirebaseMode}users")
         .doc("India")
         .collection("details")
         .where("firebase_id", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
@@ -188,8 +190,8 @@ class _SetProfileNameScreenState extends State<SetProfileNameScreen> {
       print(chatUserId);
     }
 
-    CollectionReference users =
-        FirebaseFirestore.instance.collection('users/India/details');
+    CollectionReference users = FirebaseFirestore.instance
+        .collection('${strFirebaseMode}users/India/details');
 
     users
         .add(
@@ -202,7 +204,7 @@ class _SetProfileNameScreenState extends State<SetProfileNameScreen> {
 
               // print("Place details added Successfully" + value.id)
               FirebaseFirestore.instance
-                  .collection('users')
+                  .collection("${strFirebaseMode}users")
                   .doc('India')
                   .collection('details')
                   .doc(value.id)
@@ -250,7 +252,7 @@ class _SetProfileNameScreenState extends State<SetProfileNameScreen> {
     }
 
     FirebaseFirestore.instance
-        .collection('users')
+        .collection("${strFirebaseMode}users")
         .doc('India')
         .collection('details')
         .doc(getFirestoreId)
@@ -284,45 +286,3 @@ class _SetProfileNameScreenState extends State<SetProfileNameScreen> {
     );
   }
 }
-
-/*
-funcEditLoginChatUserFirebaseData(
-    String getFirestoreId,
-  ) {
-    var chatUserId = const Uuid().v4();
-    if (kDebugMode) {
-      print(chatUserId);
-      print('=====> WE GOT FIRESTORE ID <=====');
-    }
-
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc('India')
-        .collection('details')
-        .doc(getFirestoreId.toString())
-        .set(
-      {
-        'firestore_id': getFirestoreId.toString(),
-        'chat_user_id': chatUserId.toString(),
-        'time_stamp': DateTime.now().millisecondsSinceEpoch,
-        'gender_status': 'g' //_currentSelection.toString()
-      },
-      SetOptions(merge: true),
-    ).then(
-      (value1) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const PublicChatRoomScreen(),
-          ),
-        );
-        //
-        //
-        setState(() {
-          strSetLoader = '1';
-        });
-        //
-      },
-    );
-  }
-  */

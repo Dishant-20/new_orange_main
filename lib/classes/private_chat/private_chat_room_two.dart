@@ -102,7 +102,7 @@ class _PrivateChatScreenTwoState extends State<PrivateChatScreenTwo> {
               child: StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection(
-                        "message/India/private_chats",
+                        "${strFirebaseMode}message/India/private_chats",
                       )
                       .orderBy('time_stamp', descending: true)
                       .where(
@@ -423,7 +423,7 @@ class _PrivateChatScreenTwoState extends State<PrivateChatScreenTwo> {
     // print(cont_txt_send_message.text);
 
     CollectionReference users = FirebaseFirestore.instance.collection(
-      'message/India/private_chats',
+      '${strFirebaseMode}message/India/private_chats',
     );
 
     /*
@@ -475,7 +475,7 @@ class _PrivateChatScreenTwoState extends State<PrivateChatScreenTwo> {
       print('bottle');
     }
     FirebaseFirestore.instance
-        .collection("dialog")
+        .collection("${strFirebaseMode}dialog")
         .doc("India")
         .collection("details")
         .where(
@@ -520,7 +520,7 @@ class _PrivateChatScreenTwoState extends State<PrivateChatScreenTwo> {
   //
   funcCreateDialog() {
     CollectionReference users = FirebaseFirestore.instance.collection(
-      'dialog/India/details',
+      '${strFirebaseMode}dialog/India/details',
     );
     /*
     if (kDebugMode) {
@@ -534,10 +534,16 @@ class _PrivateChatScreenTwoState extends State<PrivateChatScreenTwo> {
     users
         .add(
           {
+            // sender
             'sender_firebase_id': FirebaseAuth.instance.currentUser!.uid,
             'sender_name': widget.strSenderName,
-            'receiver_name': widget.strReceiverName,
+            'sender_chat_user_id': widget.strSenderChatId,
+            //time stamp
             'time_stamp': DateTime.now().millisecondsSinceEpoch,
+            //receiver
+            'receiver_name': widget.strReceiverName,
+            'receiver_firebase_id': widget.strReceiverFirebaseId,
+            'receiver_chat_user_id': widget.strReceiverChatId,
             'message': lastMessage,
             'users': [
               roomId,
@@ -562,7 +568,7 @@ class _PrivateChatScreenTwoState extends State<PrivateChatScreenTwo> {
     elementWithId,
   ) {
     FirebaseFirestore.instance
-        .collection('dialog')
+        .collection('${strFirebaseMode}dialog')
         .doc('India')
         .collection('details')
         .doc(elementWithId.toString())

@@ -262,6 +262,7 @@ class _LoginViaPhoneNumberScreenState extends State<LoginViaPhoneNumberScreen> {
       },
       verificationFailed: (FirebaseAuthException e) {
         if (kDebugMode) {
+          print('VERIFICATION FAILED====> $e');
           print('VERIFICATION FAILED====> ${e.code}');
         }
       },

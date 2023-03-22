@@ -54,7 +54,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
               onPressed: () => Navigator.of(context).pop(),
             ),
             automaticallyImplyLeading: true,
-            backgroundColor: const Color.fromRGBO(112, 202, 248, 1),
+            backgroundColor: app_blue_color,
           );
   }
 }

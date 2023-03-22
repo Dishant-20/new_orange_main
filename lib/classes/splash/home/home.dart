@@ -2,8 +2,10 @@
 
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:my_new_orange/classes/REVIEWS/review_category/review_category.dart';
 import 'package:my_new_orange/classes/feeds/feeds.dart';
 import 'package:my_new_orange/classes/set_name/set_profile_name.dart';
 // import 'package:my_new_orange/classes/set_name/online_chat_entry.dart';
@@ -15,6 +17,7 @@ import 'package:my_new_orange/header/utils/Utils.dart';
 // import 'package:my_new_orange/header/utils/custom/app_bar.dart';
 
 import 'package:flutter_gif/flutter_gif.dart';
+import 'package:uuid/uuid.dart';
 
 // import 'package:fluttertoast/fluttertoast.dart';
 
@@ -78,6 +81,45 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
     setState(() {});
     // fToast = FToast();
     // fToast.init(context);
+    // funcCreateReviewCategory();
+  }
+
+  funcCreateReviewCategory() {
+    var arrCategories = [
+      'Movies',
+      'Hotels',
+      'Schools',
+      'Colleges',
+      'Universities',
+      'Institutes',
+      'Politics',
+      'Government',
+      'Restaurants',
+      'Others'
+    ];
+
+    for (int i = 0; i < arrCategories.length; i++) {
+      var chatUserId = const Uuid().v4();
+
+      CollectionReference users = FirebaseFirestore.instance
+          .collection('${strFirebaseMode}reviews/India/details');
+
+      users
+          .add(
+            {
+              'category_id': chatUserId.toString(),
+              'category_name': arrCategories[i].toString(),
+              'time_stamp': DateTime.now().millisecondsSinceEpoch,
+              'total_items': '0',
+            },
+          )
+          .then(
+            (value) => print("Review Category created ==> ${value.id}"),
+          )
+          .catchError(
+            (error) => print("Failed to add user: $error"),
+          );
+    }
   }
 
   @override
@@ -202,7 +244,7 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
             ),
             //
             Container(
-              height: 300,
+              height: 440,
               decoration: BoxDecoration(
                 color: app_blue_color,
                 borderRadius: const BorderRadius.only(
@@ -274,14 +316,18 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                         Expanded(
                           child: InkWell(
                             onTap: () {
-                              func_image_alert_popup();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const SetProfileNameScreen(),
-                                ),
-                              );
+                              //
+                              if (kDebugMode) {
+                                print('object 1.1');
+                              }
+                              //
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) =>
+                              //         const SetProfileNameScreen(),
+                              //   ),
+                              // );
                             },
                             child: Container(
                               margin: const EdgeInsets.only(
@@ -315,7 +361,7 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                                   color: Colors.transparent,
                                   width: 66.0,
                                   height: 66.0,
-                                  child: Image.asset('assets/gif/stories.png'),
+                                  child: Image.asset('assets/gif/reviews.png'),
                                 ),
                               ),
                             ),
@@ -331,7 +377,7 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                           child: Container(
                             margin: const EdgeInsets.only(
                               left: 20,
-                              top: 10.0,
+                              top: 0.0,
                               right: 5,
                             ),
 
@@ -382,6 +428,240 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                         Expanded(
                           child: InkWell(
                             onTap: () {
+                              if (kDebugMode) {
+                                print('object 1');
+                              }
+                              // func_image_alert_popup();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ReviewCategoryScreen(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                left: 20,
+                                top: 0.0,
+                                right: 10,
+                              ),
+
+                              decoration: BoxDecoration(
+                                // color: Colors.brown,
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(
+                                  14,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(
+                                      0,
+                                      3,
+                                    ), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              // width: 48.0,
+                              height: 40,
+                              child: Align(
+                                child: Container(
+                                  margin: const EdgeInsets.all(10.0),
+                                  color: Colors.transparent,
+                                  // width: ,
+                                  height: 66.0,
+                                  child: text_with_regular_style(
+                                    'Reviews',
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        //
+                      ],
+                    ),
+
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.only(
+                              left: 20,
+                              top: 10.0,
+                              right: 5,
+                            ),
+
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(
+                                14,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: const Offset(
+                                    0,
+                                    3,
+                                  ), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            // width: 48.0,
+                            height: 100.0,
+                            child: Align(
+                              child: Container(
+                                margin: const EdgeInsets.all(10.0),
+                                color: Colors.transparent,
+                                width: 66.0,
+                                height: 66.0,
+                                child: InkWell(
+                                  onTap: () {
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) =>
+                                    //         const OnlineChatEntryScreen(),
+                                    //   ),
+                                    // );
+                                  },
+                                  child: Image.asset(
+                                    'assets/gif/chat.png',
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              func_image_alert_popup();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const SetProfileNameScreen(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                left: 20,
+                                top: 10.0,
+                                right: 10,
+                              ),
+
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(
+                                  14,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(
+                                      0,
+                                      3,
+                                    ), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              // width: 48.0,
+                              height: 100.0,
+                              child: Align(
+                                child: Container(
+                                  margin: const EdgeInsets.all(10.0),
+                                  color: Colors.transparent,
+                                  width: 66.0,
+                                  height: 66.0,
+                                  child: Image.asset('assets/gif/stories.png'),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        //
+                      ],
+                    ),
+                    // 2
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.only(
+                              left: 20,
+                              top: 0.0,
+                              right: 5,
+                            ),
+
+                            decoration: BoxDecoration(
+                              // color: const Color.fromRGBO(96, 190, 248, 1),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(
+                                14,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: const Offset(
+                                    0,
+                                    3,
+                                  ), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            // width: 48.0,
+                            height: 40,
+                            child: Align(
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SetProfileNameScreen(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.all(10.0),
+                                  color: Colors.transparent,
+                                  // width: 66.0,
+                                  height: 66.0,
+                                  child: text_with_regular_style(
+                                    'Blogs ( soooon )',
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
                               func_image_alert_popup();
                               /* Navigator.push(
                                 context,
@@ -393,7 +673,7 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                             child: Container(
                               margin: const EdgeInsets.only(
                                 left: 20,
-                                top: 10.0,
+                                top: 0.0,
                                 right: 10,
                               ),
 
@@ -434,6 +714,7 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                         //
                       ],
                     ),
+                    //
                   ],
                 ),
               ),
@@ -718,15 +999,7 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                         '''- You can Share or Express your fellings to anyone without revelling your identity.
                     \n- No one will get to know about yourself without your concern.
                        '''),
-                    // Text(
-                    //   '''- You can Share or Express your fellings to anyone without revelling your identity.
-                    //   \n- No one will get to know about yourself without your concern.
-                    //   ''',
-                    //   style: TextStyle(
-                    //     fontFamily: font_family_name,
-                    //     fontSize: 16,
-                    //   ),
-                    // ),
+
                     const SizedBox(
                       height: 20,
                     ),

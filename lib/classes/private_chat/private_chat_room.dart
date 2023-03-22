@@ -997,14 +997,12 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
     }
 
     CollectionReference users = FirebaseFirestore.instance.collection(
-      'message/India/private_chats',
+      '${strFirebaseMode}message/India/private_chats',
     );
 
     users
         .add(
           {
-            // asas
-            //
             'attachment_path': '',
             'sender_custom_chat_id': widget.str_login_user_chat_id
                 .toString(), //widget.str_login_user_chat_id.toString(),
@@ -1033,9 +1031,11 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
 
 // update dialog
   func_update_dialog() {
-    print('bottle');
+    if (kDebugMode) {
+      print('bottle');
+    }
     FirebaseFirestore.instance
-        .collection("dialog")
+        .collection("${strFirebaseMode}dialog")
         .doc("India")
         .collection("details")
         .where("users", arrayContainsAny: [room_id, reverse_room_id])
@@ -1063,8 +1063,8 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
   }
 
   func_create_dialog() {
-    CollectionReference users =
-        FirebaseFirestore.instance.collection('dialog/India/details');
+    CollectionReference users = FirebaseFirestore.instance
+        .collection('${strFirebaseMode}dialog/India/details');
     // '$sender_chat_id+${widget.str_login_user_chat_id}';
     users
         .add(
@@ -1105,7 +1105,7 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
     }
 
     FirebaseFirestore.instance
-        .collection('dialog')
+        .collection('${strFirebaseMode}dialog')
         .doc('India')
         .collection('details')
         .doc(str_firestore_id)
@@ -1274,7 +1274,7 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
     }
 
     CollectionReference users = FirebaseFirestore.instance.collection(
-      'message/India/private_chats',
+      '${strFirebaseMode}message/India/private_chats',
     );
 
     users

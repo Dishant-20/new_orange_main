@@ -63,7 +63,7 @@ class _PublicChatRoomChatsState extends State<PublicChatRoomChats> {
         child: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection(
-                  "message/India/public_chats",
+                  "${strFirebaseMode}message/India/public_chats",
                 )
                 .orderBy('time_stamp', descending: true)
                 .limit(40)

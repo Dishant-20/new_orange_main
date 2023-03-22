@@ -56,13 +56,14 @@ class _PublicChatRoomScreenState extends State<PublicChatRoomScreen> {
       length: 2,
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(30.0),
+          preferredSize: const Size.fromHeight(40.0),
           child: AppBar(
             // title: textWithSemiBoldStyle('Chat Room', 16.0, Colors.white),
             automaticallyImplyLeading: false,
             bottom: TabBar(
+              padding: const EdgeInsets.all(4.0),
               // controller: _tabController,
-              indicatorColor: Colors.lime,
+              indicatorColor: Colors.purpleAccent,
               isScrollable: false,
               tabs: [
                 textWithSemiBoldStyle(
@@ -71,7 +72,7 @@ class _PublicChatRoomScreenState extends State<PublicChatRoomScreen> {
                   Colors.white,
                 ),
                 textWithSemiBoldStyle(
-                  'Rooms',
+                  'My Chats',
                   16.0,
                   Colors.white,
                 ),
@@ -128,12 +129,7 @@ class _PublicChatRoomScreenState extends State<PublicChatRoomScreen> {
   Container sendMessageUI() {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
-      color: const Color.fromARGB(
-        255,
-        60,
-        182,
-        195,
-      ),
+      color: Colors.white,
       // height: 60,
       // width: MediaQuery.of(context).size.width,
       child: Row(
@@ -146,6 +142,7 @@ class _PublicChatRoomScreenState extends State<PublicChatRoomScreen> {
                 minLines: 1,
                 maxLines: 5,
                 decoration: const InputDecoration(
+                  // border: Border(),
                   // labelText: '',
                   hintText: 'write something',
                 ),
@@ -188,7 +185,7 @@ class _PublicChatRoomScreenState extends State<PublicChatRoomScreen> {
     // print(cont_txt_send_message.text);
 
     CollectionReference users = FirebaseFirestore.instance.collection(
-      'message/India/public_chats',
+      '${strFirebaseMode}message/India/public_chats',
     );
 
     users

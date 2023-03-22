@@ -12,6 +12,13 @@ var str_sign_up_alert_message =
 
 var font_family_name = 'Avenir Next';
 
+// FIREBASE MODE
+// test mode
+var strFirebaseMode = 'mode/test/';
+
+// live mode
+// var strFirebaseMode = 'mode/live/';
+
 //
 var app_blue_color = const Color.fromARGB(255, 85, 137, 226);
 var app_color = const Color.fromRGBO(112, 202, 248, 1);
