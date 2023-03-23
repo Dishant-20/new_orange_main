@@ -259,17 +259,17 @@ class _PrivateChatScreenTwoState extends State<PrivateChatScreenTwo> {
     return Column(
       children: [
         Align(
-          alignment: Alignment.bottomRight,
+          alignment: Alignment.bottomLeft,
           child: Container(
             margin: const EdgeInsets.only(
-              left: 40,
+              right: 40,
             ),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(
                   16,
                 ),
-                bottomLeft: Radius.circular(
+                bottomRight: Radius.circular(
                   16,
                 ),
                 topRight: Radius.circular(
@@ -281,26 +281,26 @@ class _PrivateChatScreenTwoState extends State<PrivateChatScreenTwo> {
             padding: const EdgeInsets.all(
               16,
             ),
-            child: const Text(
-              'r',
-              style: TextStyle(
-                fontSize: 15,
-              ),
+            child: textWithRegularStyle(
+              getSnapshot[index]['message'].toString(),
+              14.0,
+              Colors.black,
+              'left',
             ),
           ),
         ),
         //
         Align(
-          alignment: Alignment.bottomRight,
+          alignment: Alignment.bottomLeft,
           child: textWithRegularStyle(
             // getSnapshot[index]['time_stamp'].toString(),
-            '123',
-            // funcConvertTimeStampToDateAndTime(
-            //   getSnapshot[index]['time_stamp'],
-            // ),
+            // '123',
+            funcConvertTimeStampToDateAndTime(
+              getSnapshot[index]['time_stamp'],
+            ),
             12.0,
             Colors.black,
-            'right',
+            'left',
           ),
         ),
         //
@@ -319,8 +319,8 @@ class _PrivateChatScreenTwoState extends State<PrivateChatScreenTwo> {
             margin: const EdgeInsets.only(
               left: 40,
             ),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(
                   16,
                 ),
@@ -331,7 +331,7 @@ class _PrivateChatScreenTwoState extends State<PrivateChatScreenTwo> {
                   16,
                 ),
               ),
-              color: Colors.blue[200],
+              color: Color.fromARGB(255, 228, 232, 235),
             ),
             padding: const EdgeInsets.all(
               16,

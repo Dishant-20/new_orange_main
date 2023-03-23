@@ -244,7 +244,10 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
             ),
             //
             Container(
-              height: 440,
+              height: 240,
+              margin: const EdgeInsets.only(
+                bottom: 0,
+              ),
               decoration: BoxDecoration(
                 color: app_blue_color,
                 borderRadius: const BorderRadius.only(
@@ -266,7 +269,7 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                           child: Container(
                             margin: const EdgeInsets.only(
                               left: 20,
-                              top: 80.0,
+                              top: 40,
                               right: 5,
                             ),
 
@@ -336,9 +339,9 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                             },
                             child: Container(
                               margin: const EdgeInsets.only(
-                                left: 20,
-                                top: 80.0,
-                                right: 10,
+                                left: 10,
+                                top: 40.0,
+                                right: 20,
                               ),
 
                               decoration: BoxDecoration(
@@ -451,9 +454,9 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                             },
                             child: Container(
                               margin: const EdgeInsets.only(
-                                left: 20,
+                                left: 10,
                                 top: 0.0,
-                                right: 10,
+                                right: 20,
                               ),
 
                               decoration: BoxDecoration(
@@ -506,7 +509,7 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                     ///
                     ///
                     ///
-                    Row(
+                    /*Row(
                       children: <Widget>[
                         Expanded(
                           child: Container(
@@ -611,8 +614,9 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                         ),
                         //
                       ],
-                    ),
+                    ),*/
                     // 2
+                    /*
                     Row(
                       children: <Widget>[
                         Expanded(
@@ -721,7 +725,7 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                         ),
                         //
                       ],
-                    ),
+                    ),*/
                     //
                   ],
                 ),

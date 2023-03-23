@@ -391,11 +391,11 @@ class _ReviewCategoryScreenState extends State<ReviewCategoryScreen> {
                     InkWell(
                       onTap: () {
                         print('RETRIEVE DATA BY ID');
-                        handler
-                            .retrievePlanetsById(1)
-                            .then((value) => {print(value[0].categoryName)});
+                        // handler
+                        // .retrievePlanetsById(1)
+                        // .then((value) => {print(value[0].categoryName)});
 
-                        print(saveSnapshotValue);
+                        // print(saveSnapshotValue);
 
                         // List<Planets> groceryList = saveSnapshotValue.isNotEmpty
                         //     ? saveSnapshotValue
@@ -406,19 +406,19 @@ class _ReviewCategoryScreenState extends State<ReviewCategoryScreen> {
 
                         // print(groceryList);
 
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => ReviewCategoryListScreen(
-                        //       strCategoryName:
-                        //           saveSnapshotValue[i].categoryName.toString(),
-                        //       strCategoryId:
-                        //           saveSnapshotValue[i].categoryId.toString(),
-                        //       strCategoryImage:
-                        //           saveSnapshotValue[i].categoryImage.toString(),
-                        //     ),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ReviewCategoryListScreen(
+                              strCategoryName:
+                                  saveSnapshotValue[i].categoryName.toString(),
+                              strCategoryId:
+                                  saveSnapshotValue[i].categoryId.toString(),
+                              strCategoryImage:
+                                  saveSnapshotValue[i].categoryImage.toString(),
+                            ),
+                          ),
+                        );
                       },
                       child: Container(
                         padding: const EdgeInsets.only(
