@@ -61,6 +61,8 @@ class _ReviewCategoryScreenState extends State<ReviewCategoryScreen> {
           if (kDebugMode) {
             print('NO, LOCAL DB DOES NOT HAVE ANY DATA');
           }
+          //
+          // delete data from Local DB
           // call firebase server
           setState(() {
             strCategoryLoader = '1';
@@ -80,28 +82,6 @@ class _ReviewCategoryScreenState extends State<ReviewCategoryScreen> {
   }
 
   // Future<int> rererer() async {}
-  Future<int> addPlanets(arrGetAllCategoryData) async {
-    //
-    // print('dishant rajput');
-    // print(arrGetAllCategoryData[0]['category_name']);
-
-    List<Planets> planets = [];
-    //
-    for (int i = 0; i < arrGetAllCategoryData.length; i++) {
-      Planets one = Planets(
-        id: i + 1,
-        categoryId: arrGetAllCategoryData[i]['category_id'].toString(),
-        categoryImage: arrGetAllCategoryData[i]['category_image'].toString(),
-        categoryName: arrGetAllCategoryData[i]['category_name'].toString(),
-        timeStamp: arrGetAllCategoryData[i]['time_stamp'].toString(),
-        totalItem: arrGetAllCategoryData[i]['total_items'].toString(),
-      );
-
-      planets.add(one);
-    }
-
-    return await handler.insertPlanets(planets);
-  }
 
   // Define a function that inserts dogs into the database
 
@@ -110,7 +90,7 @@ class _ReviewCategoryScreenState extends State<ReviewCategoryScreen> {
     FirebaseFirestore.instance
         .collection("${strFirebaseMode}reviews")
         .doc("India")
-        .collection("details")
+        .collection("review_lists")
         .get()
         .then((value) {
       if (kDebugMode) {
@@ -167,6 +147,31 @@ class _ReviewCategoryScreenState extends State<ReviewCategoryScreen> {
     }
   }
 
+  Future<int> addPlanets(arrGetAllCategoryData) async {
+    //
+    // print('dishant rajput');
+    // print(arrGetAllCategoryData[0]['category_name']);
+
+    List<Planets> planets = [];
+    //
+    for (int i = 0; i < arrGetAllCategoryData.length; i++) {
+      print('dishu rajput');
+      print(arrGetAllCategoryData[i]['category_id']);
+      Planets one = Planets(
+        id: i + 1,
+        categoryId: arrGetAllCategoryData[i]['category_id'].toString(),
+        categoryImage: arrGetAllCategoryData[i]['category_image'].toString(),
+        categoryName: arrGetAllCategoryData[i]['category_name'].toString(),
+        timeStamp: arrGetAllCategoryData[i]['time_stamp'].toString(),
+        totalItem: '0',
+      );
+
+      planets.add(one);
+    }
+
+    return await handler.insertPlanets(planets);
+  }
+
   //
   @override
   Widget build(BuildContext context) {
@@ -199,7 +204,7 @@ class _ReviewCategoryScreenState extends State<ReviewCategoryScreen> {
         future: FirebaseFirestore.instance
             .collection('${strFirebaseMode}reviews')
             .doc('India')
-            .collection('details')
+            .collection('review_lists')
             .orderBy('time_stamp', descending: false)
             .get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot)
@@ -220,7 +225,8 @@ class _ReviewCategoryScreenState extends State<ReviewCategoryScreen> {
 
             for (int i = 0; i < saveSnapshotValue.length; i++) {
               if (kDebugMode) {
-                // print(i);
+                print(i);
+                print('object 1221');
                 // print(saveSnapshotValue[i]['category_name'].toString());
                 // print(saveSnapshotValue[i]['category_image'].toString());
                 // print(saveSnapshotValue[i]['total_items'].toString());
@@ -232,7 +238,6 @@ class _ReviewCategoryScreenState extends State<ReviewCategoryScreen> {
             }
 
             //
-            if (kDebugMode) {}
 
             return SingleChildScrollView(
               scrollDirection: Axis.vertical,
@@ -262,21 +267,31 @@ class _ReviewCategoryScreenState extends State<ReviewCategoryScreen> {
                           left: 16,
                           right: 16,
                           top: 10,
-                          bottom: 10,
+                          // bottom: 10,
                         ),
                         child: Row(
                           children: <Widget>[
                             Expanded(
                               child: Row(
                                 children: <Widget>[
-                                  CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                      //
+                                  // CircleAvatar(
+                                  //   backgroundImage: NetworkImage(
+                                  //     //
+                                  //     saveSnapshotValue[i]['category_image']
+                                  //         .toString(),
+                                  //     //
+                                  //   ),
+                                  //   maxRadius: 40,
+                                  // ),
+                                  Container(
+                                    // margin: const EdgeInsets.all(10.0),
+                                    color: Colors.transparent,
+                                    width: 50,
+                                    height: 50,
+                                    child: Image.network(
                                       saveSnapshotValue[i]['category_image']
                                           .toString(),
-                                      //
                                     ),
-                                    maxRadius: 40,
                                   ),
                                   const SizedBox(
                                     width: 16,
@@ -303,7 +318,7 @@ class _ReviewCategoryScreenState extends State<ReviewCategoryScreen> {
                                           //
                                           textWithRegularStyle(
                                             //
-                                            'Total ${saveSnapshotValue[i]['category_name']} : ${saveSnapshotValue[i]['total_items']}',
+                                            'Total ${saveSnapshotValue[i]['category_name']}',
                                             //
                                             16.0,
                                             Colors.black,
@@ -362,6 +377,7 @@ class _ReviewCategoryScreenState extends State<ReviewCategoryScreen> {
         builder: (BuildContext context, AsyncSnapshot<List<Planets>> snapshot) {
           if (snapshot.hasData) {
             if (kDebugMode) {
+              print('ALL DATA FETCHED FROM LOCAL DB');
               print('YES, CATEGORY HAS DATA DB');
             }
 
@@ -432,15 +448,16 @@ class _ReviewCategoryScreenState extends State<ReviewCategoryScreen> {
                             Expanded(
                               child: Row(
                                 children: <Widget>[
-                                  CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                      //
+                                  Container(
+                                    // margin: const EdgeInsets.all(10.0),
+                                    color: Colors.transparent,
+                                    width: 50,
+                                    height: 50,
+                                    child: Image.network(
                                       saveSnapshotValue[i]
                                           .categoryImage
                                           .toString(),
-                                      //
                                     ),
-                                    maxRadius: 40,
                                   ),
                                   const SizedBox(
                                     width: 16,

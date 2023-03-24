@@ -105,13 +105,16 @@ class _ReviewCategoryListScreenState extends State<ReviewCategoryListScreen> {
                                 Expanded(
                                   child: Row(
                                     children: <Widget>[
-                                      CircleAvatar(
-                                        backgroundImage: NetworkImage(
+                                      Container(
+                                        // margin: const EdgeInsets.all(10.0),
+                                        color: Colors.transparent,
+                                        width: 50,
+                                        height: 50,
+                                        child: Image.network(
                                           //
                                           widget.strCategoryImage.toString(),
                                           //
                                         ),
-                                        maxRadius: 40,
                                       ),
                                       const SizedBox(
                                         width: 16,

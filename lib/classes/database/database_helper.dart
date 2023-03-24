@@ -56,4 +56,14 @@ class DataBase {
       whereArgs: [id],
     );
   }
+
+  //
+  Future<void> deleteAllLocalDB() async {
+    final db = await initializedDB();
+    await db.delete(
+      databaseTableName,
+      // where: "id = ?",
+      // whereArgs: [id],
+    );
+  }
 }

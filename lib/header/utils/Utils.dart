@@ -30,7 +30,7 @@ var str_n_t_set_name = 'Set name';
 var public_message_count = 40;
 
 //
-var databaseTableName = 'anamak_category_list_db_2';
+var databaseTableName = 'test_1'; //'anamak_category_list_db_2';
 
 /* ================================================================ */
 

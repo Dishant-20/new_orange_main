@@ -35,7 +35,7 @@ class _ReviewChatLeftScreenState extends State<ReviewChatLeftScreen> {
                       FirebaseAuth.instance.currentUser!.uid)
                   ? const SizedBox()
                   : */
-              IconButton(
+              /*IconButton(
                 onPressed: () {
                   if (kDebugMode) {
                     print('=====> CHAT WITH OTHERS CLICK <=====');
@@ -68,7 +68,7 @@ class _ReviewChatLeftScreenState extends State<ReviewChatLeftScreen> {
                   Icons.chat,
                   color: Colors.purple,
                 ),
-              ),
+              ),*/
             ],
             // 98061311374
             // 8800631774

@@ -3,9 +3,11 @@
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_new_orange/classes/REVIEWS/review_category/review_category.dart';
+import 'package:my_new_orange/classes/add_category_in_firebase/add_category_in_fb_server.dart';
 import 'package:my_new_orange/classes/feeds/feeds.dart';
 import 'package:my_new_orange/classes/set_name/set_profile_name.dart';
 // import 'package:my_new_orange/classes/set_name/online_chat_entry.dart';
@@ -174,6 +176,26 @@ class _HomeScreenScreenState extends State<HomeScreenScreen>
                         Icons.settings,
                       ),
                     ),
+                    // (FirebaseAuth.instance.currentUser!.uid ==
+                    //         'sL8E1IvTpyXlkr5HYjBD2WItsed2')
+                    //     ?
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const AddCategoryInFirebaseServerScreen(),
+                          ),
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.add,
+                      ),
+                    ),
+                    // : const SizedBox(
+                    //     height: 0,
+                    //   ),
                     const SizedBox(
                       width: 50,
                     ),
